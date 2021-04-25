@@ -32,4 +32,16 @@ public class Dictionary {
     public String getWordByKey(String key) {
         return dict.get(key);
     }
+
+    public HashMap<String, String> getWordsByKeyword(String keyword) {
+        keyword.toLowerCase();
+        HashMap<String, String> result = new HashMap<String, String>();
+        for (String key : dict.keySet()) {
+            String currentValue = dict.get(key);
+            if (currentValue.toLowerCase().contains(keyword)) {
+                result.put(key, currentValue);
+            }
+        }
+        return result;
+    }
 }

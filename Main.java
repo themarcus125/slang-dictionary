@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -10,6 +11,23 @@ public class Main {
     String result = dict.getWordByKey(keyword);
     String msg = result == null ? "That word isn't found" : "The word " + keyword + " means " + result;
     System.out.println(msg);
+    keyboard.close();
+  }
+
+  public static void findASlangByMeaning(Dictionary dict) {
+    Scanner keyboard = new Scanner(System.in);
+    System.out.println("Enter the keyword: ");
+    String keyword = keyboard.next();
+    HashMap<String, String> result = dict.getWordsByKeyword(keyword);
+    if (result.size() == 0) {
+      System.out.println("No slang has that keyword in its meaning!!");
+    }
+    if (result.size() > 0) {
+      System.out.println("These slang have that keyword in their meanings:");
+      for (String key : result.keySet()) {
+        System.out.println("Word:  " + key + ", Meaning: " + result.get(key));
+      }
+    }
     keyboard.close();
   }
 
@@ -41,6 +59,6 @@ public class Main {
   public static void main(String[] args) throws IOException {
     Dictionary dict = new Dictionary();
     dict.initializeDictionary();
-    findASlangByWord(dict);
+    findASlangByMeaning(dict);
   }
 }
