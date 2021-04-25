@@ -9,8 +9,13 @@ public class Main {
     System.out.println("Enter the word you wish to find: ");
     String keyword = keyboard.next();
     String result = dict.getWordByKey(keyword);
-    String msg = result == null ? "That word isn't found" : "The word " + keyword + " means " + result;
-    System.out.println(msg);
+    if (result != null) {
+      System.out.println("The word " + keyword + " means " + result);
+      dict.addToHistory(keyword, result);
+    }
+    if (result == null) {
+      System.out.println("There is no such word in dictionary.");
+    }
     keyboard.close();
   }
 
@@ -25,7 +30,9 @@ public class Main {
     if (result.size() > 0) {
       System.out.println("These slang have that keyword in their meanings:");
       for (String key : result.keySet()) {
-        System.out.println("Word:  " + key + ", Meaning: " + result.get(key));
+        String meaning = result.get(key);
+        System.out.println("Word:  " + key + ", Meaning: " + meaning);
+        dict.addToHistory(key, meaning);
       }
     }
     keyboard.close();
@@ -59,6 +66,8 @@ public class Main {
   public static void main(String[] args) throws IOException {
     Dictionary dict = new Dictionary();
     dict.initializeDictionary();
-    findASlangByMeaning(dict);
+    dict.initializeHistory();
+    findASlangByWord(dict);
+    dict.saveHistory();
   }
 }
