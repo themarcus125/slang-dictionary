@@ -5,10 +5,16 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Random;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Dictionary {
     HashMap<String, String> dict = new HashMap<String, String>();
     HashMap<String, String> history = new HashMap<String, String>();
+    String dictPath = "test.txt";
+    String defaultDictPath = "slang.txt";
+    String historyPath = "history.txt";
 
     public HashMap<String, String> loadHashMapFromFile(String path) throws IOException {
         HashMap<String, String> result = new HashMap<String, String>();
@@ -28,28 +34,39 @@ public class Dictionary {
         return result;
     }
 
-    public void initializeDictionary() throws IOException {
-        dict = loadHashMapFromFile("test.txt");
-    }
-
-    public void initializeHistory() throws IOException {
-        history = loadHashMapFromFile("history.txt");
-    }
-
-    public void saveHistory() throws IOException {
-        String path = "history.txt";
-        String line;
+    public void saveHashMapToFile(String path, HashMap<String, String> hashMap) throws IOException {
         File file = new File(path);
         if (!file.exists()) {
             file.createNewFile();
         }
         FileWriter fw = new FileWriter(file, false);
         BufferedWriter writer = new BufferedWriter(fw);
-        for (String key : history.keySet()) {
-            writer.write(key + '`' + history.get(key));
+        for (String key : hashMap.keySet()) {
+            writer.write(key + '`' + hashMap.get(key));
             writer.newLine();
         }
         writer.close();
+    }
+
+    public void initializeDictionary() throws IOException {
+        dict = loadHashMapFromFile(dictPath);
+    }
+
+    public void initializeHistory() throws IOException {
+        history = loadHashMapFromFile(historyPath);
+    }
+
+    public void saveHistory() throws IOException {
+        saveHashMapToFile(historyPath, history);
+    }
+
+    public void saveDictState() throws IOException {
+        saveHashMapToFile(dictPath, dict);
+    }
+
+    public void resetDictionary() throws IOException {
+        dict = loadHashMapFromFile(defaultDictPath);
+        saveHashMapToFile(dictPath, dict);
     }
 
     public void addToHistory(String key, String value) {
@@ -70,7 +87,7 @@ public class Dictionary {
         printHashMap(history);
     }
 
-    public String getWordByKey(String key) {
+    public String getWordMeaning(String key) {
         return dict.get(key);
     }
 
@@ -100,5 +117,21 @@ public class Dictionary {
 
     public void removeSlang(String word) {
         dict.remove(word);
+    }
+
+    public String getRandomWord() {
+        List<String> valuesList = new ArrayList<String>(dict.keySet());
+        int randomIndex = new Random().nextInt(valuesList.size());
+        String randomValue = valuesList.get(randomIndex);
+        return randomValue;
+    }
+
+    public HashMap<String, String> getRandomWords(Integer count) {
+        HashMap<String, String> result = new HashMap<String, String>();
+        while (result.size() != count) {
+            String randomWord = getRandomWord();
+            result.put(randomWord, getWordMeaning(randomWord));
+        }
+        return result;
     }
 }
