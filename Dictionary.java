@@ -10,8 +10,8 @@ public class Dictionary {
     HashMap<String, String> dict = new HashMap<String, String>();
     HashMap<String, String> history = new HashMap<String, String>();
 
-    public void initializeDictionary() throws IOException {
-        String path = "test.txt";
+    public HashMap<String, String> loadHashMapFromFile(String path) throws IOException {
+        HashMap<String, String> result = new HashMap<String, String>();
         String line;
         BufferedReader reader = new BufferedReader(new FileReader(path));
         while ((line = reader.readLine()) != null) {
@@ -19,29 +19,21 @@ public class Dictionary {
             if (parts.length >= 2) {
                 String key = parts[0];
                 String value = parts[1];
-                dict.put(key, value);
+                result.put(key, value);
             } else {
                 System.out.println("ignoring line: " + line);
             }
         }
         reader.close();
+        return result;
+    }
+
+    public void initializeDictionary() throws IOException {
+        dict = loadHashMapFromFile("test.txt");
     }
 
     public void initializeHistory() throws IOException {
-        String path = "history.txt";
-        String line;
-        BufferedReader reader = new BufferedReader(new FileReader(path));
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split("`", 2);
-            if (parts.length >= 2) {
-                String key = parts[0];
-                String value = parts[1];
-                history.put(key, value);
-            } else {
-                System.out.println("ignoring line: " + line);
-            }
-        }
-        reader.close();
+        history = loadHashMapFromFile("history.txt");
     }
 
     public void saveHistory() throws IOException {
@@ -64,10 +56,18 @@ public class Dictionary {
         history.putIfAbsent(key, value);
     }
 
-    public void printDictionary() {
-        for (String key : dict.keySet()) {
-            System.out.println("Word:  " + key + ", Meaning: " + dict.get(key));
+    public void printHashMap(HashMap<String, String> hashMap) {
+        for (String key : hashMap.keySet()) {
+            System.out.println("Word:  " + key + ", Meaning: " + hashMap.get(key));
         }
+    }
+
+    public void printDictionary() {
+        printHashMap(dict);
+    }
+
+    public void printHistory() {
+        printHashMap(history);
     }
 
     public String getWordByKey(String key) {
@@ -84,5 +84,21 @@ public class Dictionary {
             }
         }
         return result;
+    }
+
+    public Boolean checkSlangExistence(String word) {
+        return dict.containsKey(word);
+    }
+
+    public void addSlang(String word, String meaning) {
+        dict.put(word, meaning);
+    }
+
+    public void editSlang(String word, String meaning) {
+        dict.replace(word, meaning);
+    }
+
+    public void removeSlang(String word) {
+        dict.remove(word);
     }
 }
