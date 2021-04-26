@@ -41,7 +41,7 @@ public class Main {
         dict.printHistory();
     }
 
-    public static  void addNewSlangWord(Dictionary dict) {
+    public static void addNewSlangWord(Dictionary dict) {
         System.out.println("Enter the word: ");
         String keyword = keyboard.next();
         System.out.println("Enter the word's meaning: ");
@@ -60,21 +60,29 @@ public class Main {
                     System.out.println("Invalid option, aborting!!");
                     break;
             }
-        }
-        else {
+        } else {
             dict.addSlang(keyword, meaning);
         }
     }
 
-    public static  void editASlangWord(Dictionary dict) {
+    public static void editASlangWord(Dictionary dict) {
         System.out.println("Enter the word: ");
         String keyword = keyboard.next();
         if (dict.checkSlangExistence(keyword) == true) {
             System.out.println("Enter the word's meaning: ");
             String meaning = keyboard.next();
             dict.editSlang(keyword, meaning);
+        } else {
+            System.out.println("There is no such word in the library.");
         }
-        else {
+    }
+
+    public static void removeASlang(Dictionary dict) {
+        System.out.println("Enter the word: ");
+        String keyword = keyboard.next();
+        if (dict.checkSlangExistence(keyword) == true) {
+            dict.removeSlang(keyword);
+        } else {
             System.out.println("There is no such word in the library.");
         }
     }
@@ -109,6 +117,9 @@ public class Main {
                 break;
             case 5:
                 editASlangWord(dict);
+                break;
+            case 6:
+                removeASlang(dict);
                 break;
             case 11:
                 isExited = true;
