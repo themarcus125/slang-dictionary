@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Dictionary {
     HashMap<String, String> dict = new HashMap<String, String>();
     HashMap<String, String> history = new HashMap<String, String>();
-    String dictPath = "test.txt";
+    String dictPath = "indexed.txt";
     String defaultDictPath = "slang.txt";
     String historyPath = "history.txt";
 
@@ -109,14 +109,17 @@ public class Dictionary {
 
     public void addSlang(String word, String meaning) {
         dict.put(word, meaning);
+        System.out.println("Word has been added!!");
     }
 
     public void editSlang(String word, String meaning) {
         dict.replace(word, meaning);
+        System.out.println("Word has been modified!!");
     }
 
     public void removeSlang(String word) {
         dict.remove(word);
+        System.out.println("Word has been removed!!");
     }
 
     public String getRandomWord() {
