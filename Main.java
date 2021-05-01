@@ -6,7 +6,8 @@ import java.util.Scanner;
 import java.util.Collections;
 
 public class Main {
-    //Using scanner for reading string, newlines (useDelimiter) https://stackoverflow.com/questions/39514730/how-to-take-input-as-string-with-spaces-in-java-using-scanner/39514943
+    // Using scanner for reading string, newlines (useDelimiter)
+    // https://stackoverflow.com/questions/39514730/how-to-take-input-as-string-with-spaces-in-java-using-scanner/39514943
     private static Scanner keyboard = new Scanner(System.in).useDelimiter("\n");;
     private static Boolean isExited = false;
 
@@ -54,15 +55,15 @@ public class Main {
             System.out.println("This word already exists, do you want to (o)verwrite or (d)upplicate it (enter o/d): ");
             String option = keyboard.next();
             switch (option) {
-            case "o":
-                dict.editSlang(keyword, meaning);
-                break;
-            case "d":
-                dict.addSlang(keyword, meaning);
-                break;
-            default:
-                System.out.println("Invalid option, aborting!!");
-                break;
+                case "o":
+                    dict.editSlang(keyword, meaning);
+                    break;
+                case "d":
+                    dict.addSlang(keyword, meaning);
+                    break;
+                default:
+                    System.out.println("Invalid option, aborting!!");
+                    break;
             }
         } else {
             dict.addSlang(keyword, meaning);
@@ -85,7 +86,20 @@ public class Main {
         System.out.println("Enter the word: ");
         String keyword = keyboard.next();
         if (dict.checkSlangExistence(keyword) == true) {
-            dict.removeSlang(keyword);
+            System.out.println("Are you sure about deleting the word? (y/n) ");
+            String result = keyboard.next();
+            switch (result) {
+                case "y":
+                    dict.removeSlang(keyword);
+                    break;
+                case "n":
+                    System.out.println("Aborting...");
+                    break;
+                default:
+                    System.out.println("Wrong input, aborting...");
+                    break;
+            }
+
         } else {
             System.out.println("There is no such word in the library.");
         }
@@ -159,42 +173,42 @@ public class Main {
         System.out.println("---------------------------------");
         int feature = keyboard.nextInt();
         switch (feature) {
-        case 1:
-            findASlangByWord(dict);
-            break;
-        case 2:
-            findASlangByMeaning(dict);
-            break;
-        case 3:
-            showHistory(dict);
-            break;
-        case 4:
-            addNewSlangWord(dict);
-            break;
-        case 5:
-            editASlangWord(dict);
-            break;
-        case 6:
-            removeASlang(dict);
-            break;
-        case 7:
-            resetDictionary(dict);
-            break;
-        case 8:
-            imFeelingLucky(dict);
-            break;
-        case 9:
-            guessTheSlangMeaning(dict);
-            break;
-        case 10:
-            guessTheSlang(dict);
-            break;
-        case 11:
-            isExited = true;
-            break;
-        default:
-            System.out.println("Invalid input, please try again!");
-            break;
+            case 1:
+                findASlangByWord(dict);
+                break;
+            case 2:
+                findASlangByMeaning(dict);
+                break;
+            case 3:
+                showHistory(dict);
+                break;
+            case 4:
+                addNewSlangWord(dict);
+                break;
+            case 5:
+                editASlangWord(dict);
+                break;
+            case 6:
+                removeASlang(dict);
+                break;
+            case 7:
+                resetDictionary(dict);
+                break;
+            case 8:
+                imFeelingLucky(dict);
+                break;
+            case 9:
+                guessTheSlangMeaning(dict);
+                break;
+            case 10:
+                guessTheSlang(dict);
+                break;
+            case 11:
+                isExited = true;
+                break;
+            default:
+                System.out.println("Invalid input, please try again!");
+                break;
         }
         System.out.println("---------------------------------");
     }
