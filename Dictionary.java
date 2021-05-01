@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Dictionary {
+    // HashMap methods https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html
     HashMap<String, String> dict = new HashMap<String, String>();
     HashMap<String, String> history = new HashMap<String, String>();
     String dictPath = "indexed.txt";
@@ -17,6 +18,7 @@ public class Dictionary {
     String historyPath = "history.txt";
 
     public HashMap<String, String> loadHashMapFromFile(String path) throws IOException {
+        // Read file with BufferedReader https://www.guru99.com/buffered-reader-in-java.html
         HashMap<String, String> result = new HashMap<String, String>();
         String line;
         BufferedReader reader = new BufferedReader(new FileReader(path));
@@ -35,6 +37,7 @@ public class Dictionary {
     }
 
     public void saveHashMapToFile(String path, HashMap<String, String> hashMap) throws IOException {
+        // Using FileWriter to save HashMap to file https://www.tutorialspoint.com/java/java_filewriter_class.htm
         File file = new File(path);
         if (!file.exists()) {
             file.createNewFile();

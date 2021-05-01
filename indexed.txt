@@ -4608,7 +4608,6 @@ KMU`Keep Me Updated
 KMT`Kiss My Teeth
 YALLAH`Let's Go
 IITUWUTMAS`If I Tell You Will You Tell Me A Secret?
-lol`laughghoutloud
 BOOGER`Dried nose mucus
 KNP`OK, No Problem
 KNO`Know

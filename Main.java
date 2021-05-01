@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.Collections;
 
 public class Main {
-    private static Scanner keyboard = new Scanner(System.in);
+    private static Scanner keyboard = new Scanner(System.in).useDelimiter("\n");;
     private static Boolean isExited = false;
 
     public static void findASlangByWord(Dictionary dict) {
