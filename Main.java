@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.Collections;
 
 public class Main {
+    //Using scanner for reading string, newlines (useDelimiter) https://stackoverflow.com/questions/39514730/how-to-take-input-as-string-with-spaces-in-java-using-scanner/39514943
     private static Scanner keyboard = new Scanner(System.in).useDelimiter("\n");;
     private static Boolean isExited = false;
 
